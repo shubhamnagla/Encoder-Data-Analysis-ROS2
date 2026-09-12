@@ -1,0 +1,5 @@
+#This is a service file for the encoder reset
+
+bool reset #request from python node
+---
+bool success #response from c++ node 
