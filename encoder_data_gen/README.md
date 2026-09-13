@@ -27,7 +27,7 @@ source install/setup.bash
 ros2 launch encoder_data_gen encoder_mimic_launch.py
 ```
 
-This will start the encoder generator and print the node output to the terminal.
+This starts the encoder generator in the foreground. The node publishes on `encoder_data`; per-message publishing logs are disabled by default.
 
 ## Service
 The node exposes:
@@ -36,7 +36,13 @@ The node exposes:
 /reset_encoder
 ```
 
-This service is provided by the custom message type from the `enc_srv` package.
+This service uses the custom type `enc_srv/srv/EncoderResetService` from the `enc_srv` package. Its request contains `reset` and its response contains `success`.
+
+Call it manually with:
+
+```bash
+ros2 service call /reset_encoder enc_srv/srv/EncoderResetService '{reset: true}'
+```
 
 ## Notes
 The node is built for simple simulation and testing in a ROS 2 ecosystem and acts as the data source for the analysis package.

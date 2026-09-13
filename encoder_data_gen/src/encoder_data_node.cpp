@@ -19,6 +19,7 @@ public:
   EncoderDataNode()
   : Node("encoder_data_node"), motor_speed_(0)
   {
+    // Create a service to reset the encoder data
     service_ = this->create_service<enc_srv::srv::EncoderResetService>(
       "reset_encoder", 
       [this](const std::shared_ptr<enc_srv::srv::EncoderResetService::Request> request,
@@ -28,7 +29,11 @@ public:
         response->success = true; // Indicate successful reset
         RCLCPP_INFO(this->get_logger(), "Encoder reset to 0.");
       });
-    publisher_ = this->create_publisher<std_msgs::msg::Int32>("encoder_data", 10);
+
+    // Create a publisher to publish random motor speed values
+    publisher_ = this->create_publisher<std_msgs::msg::Int32>("encoder_data", 100);
+
+    // Create a timer to publish random motor speed values every 100 milliseconds
     auto timer_callback = [this]() -> void {
       motor_speed_ = random() % 100; // Random speed between 0 and 99
       auto message = std_msgs::msg::Int32();
@@ -36,14 +41,16 @@ public:
       // RCLCPP_INFO(this->get_logger(), "Motor Speed: '%d'", message.data);
       publisher_->publish(message);
     };
+
+    // Create a wall timer to call the timer_callback every 100 milliseconds
     timer_ = this->create_wall_timer(10ms, timer_callback);
   }
 
 private:
-  rclcpp::TimerBase::SharedPtr timer_;
-  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_;
-  rclcpp::Service<enc_srv::srv::EncoderResetService>::SharedPtr service_;
-  int32_t motor_speed_;
+  rclcpp::TimerBase::SharedPtr timer_; // Timer to trigger the publishing of random motor speed values
+  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_; // Publisher to publish random motor speed values
+  rclcpp::Service<enc_srv::srv::EncoderResetService>::SharedPtr service_; // Service to reset the encoder data
+  int32_t motor_speed_; // Variable to hold the current motor speed value
 };
 
 int main(int argc, char ** argv)

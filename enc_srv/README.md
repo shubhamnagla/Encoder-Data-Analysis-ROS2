@@ -10,18 +10,24 @@ This package creates the service contract that allows nodes to reset the encoder
 The package defines:
 
 ```bash
-EncoderResetService.srv
+srv/EncoderResetService.srv
 ```
 
 The service is used to trigger encoder reset requests from the data-analysis logic to the generator node.
 
 ## Service interface
-The service request is empty and the response contains a success flag.
+The request contains a boolean `reset` field and the response contains a boolean `success` field:
+
+```text
+bool reset
+---
+bool success
+```
 
 Example usage:
 
 ```bash
-ros2 service call /reset_encoder enc_srv/srv/EncoderResetService '{}'
+ros2 service call /reset_encoder enc_srv/srv/EncoderResetService '{reset: true}'
 ```
 
 ## Key files
