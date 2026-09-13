@@ -31,7 +31,7 @@ public:
       });
 
     // Create a publisher to publish random motor speed values
-    publisher_ = this->create_publisher<std_msgs::msg::Int32>("encoder_data", 100);
+    publisher_ = this->create_publisher<std_msgs::msg::Int32>("encoder_data", 10);
 
     // Create a timer to publish random motor speed values every 100 milliseconds
     auto timer_callback = [this]() -> void {
