@@ -9,7 +9,7 @@ The package contains a node named `encoder_data_node`.
 ### Behavior
 - Publishes random speed values to the `encoder_data` topic
 - Uses `std_msgs/msg/Int32` as the topic message type
-- Sends a new value every 10 milliseconds
+- Sends a new value every 100 milliseconds
 - Random values range from 0 to 99
 - Provides the `reset_encoder` service to reset the internal speed to zero
 

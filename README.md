@@ -9,7 +9,7 @@ Purpose: simulates an encoder by publishing random motor-speed values.
 
 Functionality:
 - Publishes a `std_msgs/msg/Int32` message to the `encoder_data` topic
-- Emits a new value every 10 ms
+- Emits a new value every 100 ms
 - Uses a random value from 0 to 99
 - Exposes the `/reset_encoder` service to reset the internal speed back to zero
 
