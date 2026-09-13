@@ -43,7 +43,7 @@ public:
     };
 
     // Create a wall timer to call the timer_callback every 100 milliseconds
-    timer_ = this->create_wall_timer(10ms, timer_callback);
+    timer_ = this->create_wall_timer(100ms, timer_callback);
   }
 
 private:
